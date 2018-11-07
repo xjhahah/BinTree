@@ -28,5 +28,6 @@ void MirrorBinTree(PBTNode pRoot);
 void MirrorBinTreeNor(PBTNode pRoot);
 //二叉树的节点数
 int BinTreeSize(PBTNode pRoot);
-
+//二叉树叶子节点数
+int BinTreeLeaf(PBTNode pRoot);
 void TestBinTree();

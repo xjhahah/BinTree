@@ -180,6 +180,15 @@ int BinTreeSize(PBTNode pRoot)
 
 	return left + right + 1;
 }
+//二叉树叶子节点数
+int BinTreeLeaf(PBTNode pRoot)
+{
+	if (NULL == pRoot)
+		return 0;
+	if (NULL == pRoot->_pLeft && NULL == pRoot->_pRight)
+		return 1;
+	return BinTreeLeaf(pRoot->_pLeft) + BinTreeLeaf(pRoot->_pRight);
+}
 void TestBinTree()
 {
 	PBTNode pRoot=NULL; 
@@ -211,6 +220,7 @@ void TestBinTree()
 	LevelOrder(pRoot);
 	printf("\n");
 
-	printf("二叉树的节点数为：%d", BinTreeSize(pRoot));
-	printf("\n");
+	printf("二叉树的节点数为：%d\n", BinTreeSize(pRoot));
+	
+	printf("二叉树的叶子节点数：%d\n", BinTreeLeaf(pRoot));
 }
