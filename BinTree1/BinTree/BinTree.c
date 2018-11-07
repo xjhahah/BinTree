@@ -170,6 +170,16 @@ void MirrorBinTree(PBTNode pRoot)
 	if (pRoot->_pRight)
 		MirrorBinTree(pRoot->_pRight);
 }
+//二叉树的节点数
+int BinTreeSize(PBTNode pRoot)
+{
+	if (NULL == pRoot)
+		return 0;
+	int left = BinTreeSize(pRoot->_pLeft);
+	int right = BinTreeSize(pRoot->_pRight);
+
+	return left + right + 1;
+}
 void TestBinTree()
 {
 	PBTNode pRoot=NULL; 
@@ -199,5 +209,8 @@ void TestBinTree()
 
 	MirrorBinTreeNor(pRoot);
 	LevelOrder(pRoot);
+	printf("\n");
+
+	printf("二叉树的节点数为：%d", BinTreeSize(pRoot));
 	printf("\n");
 }

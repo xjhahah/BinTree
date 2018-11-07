@@ -26,4 +26,7 @@ void LevelOrder(PBTNode pRoot);
 //二叉树镜像
 void MirrorBinTree(PBTNode pRoot);
 void MirrorBinTreeNor(PBTNode pRoot);
+//二叉树的节点数
+int BinTreeSize(PBTNode pRoot);
+
 void TestBinTree();
