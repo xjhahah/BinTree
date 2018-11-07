@@ -126,6 +126,24 @@ void LevelOrder(PBTNode pRoot)
 		QueuePop(&q);
 	}
 }
+//∂˛≤Ê ˜æµœÒ
+void MirrorBinTree(PBTNode pRoot)
+{
+	if (NULL == pRoot) 
+		return;
+	if ((NULL == pRoot->_pLeft && NULL == pRoot->_pRight))
+		return;
+	PBTNode pCur = pRoot->_pLeft;
+	pRoot->_pLeft = pRoot->_pRight;
+	pRoot->_pRight = pCur;
+	if (pRoot->_pLeft)
+		MirrorBinTree(pRoot->_pLeft);
+	if (pRoot->_pRight)
+		MirrorBinTree(pRoot->_pRight);
+	LevelOrder(pRoot);
+}
+
+
 void TestBinTree()
 {
 	PBTNode pRoot=NULL; 
@@ -147,4 +165,6 @@ void TestBinTree()
 	printf("∫Û–Ú±È¿˙£∫");
 	LevelOrder(pRoot);
 	//PerOrder(pNewBTNode);
+	printf("\n");
+	MirrorBinTree(pRoot);
 }

@@ -23,4 +23,6 @@ void DestroyBinTree(PBTNode* pRoot);
 //²ãÐò±éÀú
 void LevelOrder(PBTNode pRoot);
 
+//¶þ²æÊ÷¾µÏñ
+void MirrorBinTree(PBTNode pRoot);
 void TestBinTree();
