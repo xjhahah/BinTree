@@ -25,4 +25,5 @@ void LevelOrder(PBTNode pRoot);
 
 //¶þ²æÊ÷¾µÏñ
 void MirrorBinTree(PBTNode pRoot);
+void MirrorBinTreeNor(PBTNode pRoot);
 void TestBinTree();

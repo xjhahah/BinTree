@@ -127,9 +127,38 @@ void LevelOrder(PBTNode pRoot)
 	}
 }
 //二叉树镜像
+void Swap(PBTNode* pLeft, PBTNode* pRight)
+{
+	PBTNode pTemp = *pLeft;
+	*pLeft = *pRight;
+	*pRight = pTemp;
+}
+//镜像的递归实现
+void MirrorBinTreeNor(PBTNode pRoot)
+{
+	//非递归
+	if (NULL == pRoot)
+		return;
+	Queue q;
+	QueueInit(&q);
+
+	QueuePush(&q, pRoot);
+	while (QueueEmpty(&q))
+	{
+		PBTNode pCur = QueueFront(&q);
+		Swap(&(pCur->_pLeft), &(pCur->_pRight));
+		if (pCur->_pLeft)
+			QueuePush(&q, pCur->_pLeft);
+		if (pCur->_pRight)
+			QueuePush(&q, pCur->_pRight);
+		QueuePop(&q);
+	}
+}
+//镜像的递归实现
 void MirrorBinTree(PBTNode pRoot)
 {
-	if (NULL == pRoot) 
+	//递归
+	if (NULL == pRoot)
 		return;
 	if ((NULL == pRoot->_pLeft && NULL == pRoot->_pRight))
 		return;
@@ -140,10 +169,7 @@ void MirrorBinTree(PBTNode pRoot)
 		MirrorBinTree(pRoot->_pLeft);
 	if (pRoot->_pRight)
 		MirrorBinTree(pRoot->_pRight);
-	LevelOrder(pRoot);
 }
-
-
 void TestBinTree()
 {
 	PBTNode pRoot=NULL; 
@@ -161,10 +187,17 @@ void TestBinTree()
 	printf("\n");
 	printf("后序遍历：");
 	PostOrder(pRoot);
+	printf("\n");
 
-	printf("后序遍历：");
+	printf("层序遍历：");
 	LevelOrder(pRoot);
 	//PerOrder(pNewBTNode);
 	printf("\n");
 	MirrorBinTree(pRoot);
+	LevelOrder(pRoot);
+	printf("\n");
+
+	MirrorBinTreeNor(pRoot);
+	LevelOrder(pRoot);
+	printf("\n");
 }
