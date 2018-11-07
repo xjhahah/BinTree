@@ -1,26 +1,22 @@
 #include "BinTree.h"
+#include "Queue.h"
 
-#include <stdio.h>
-#include <assert.h>
-#include <malloc.h>
-#include <string.h>
-
-PNode BuyBinTreeNode(DataType data)
+PBTNode BuyBinTreeNode(BTDataType data)
 {
-	PNode pNewNode = NULL;
-	pNewNode = (PNode)malloc(sizeof(Node));
-	if (NULL == pNewNode)
+	PBTNode pNewBTNode = NULL;
+	pNewBTNode = (PBTNode)malloc(sizeof(BTNode));
+	if (NULL == pNewBTNode)
 	{
 		assert(0);
 		return NULL;
 	}
-	pNewNode->_data = data;
-	pNewNode->_pLeft = NULL;
-	pNewNode->_pRight = NULL;
-	return pNewNode;
+	pNewBTNode->_data = data;
+	pNewBTNode->_pLeft = NULL;
+	pNewBTNode->_pRight = NULL;
+	return pNewBTNode;
 }
 //创建二叉树 根+左子树+右子树
-void _CreatBinTree(PNode* pRoot, DataType array[], int size,int* index,DataType invaild)
+void _CreatBinTree(PBTNode* pRoot, BTDataType array[], int size,int* index, BTDataType invaild)
 {
 	assert(pRoot);
 	if (*index < size&&invaild != array[*index])
@@ -37,16 +33,16 @@ void _CreatBinTree(PNode* pRoot, DataType array[], int size,int* index,DataType 
 	}	
 }
 //外部人员来调用这个函数的时候是不需要知道索引的
-void CreatBinTree(PNode* pRoot, DataType array[], int size, DataType invaild)
+void CreatBinTree(PBTNode* pRoot, BTDataType array[], int size, BTDataType invaild)
 {
 	int len = 0;
 	_CreatBinTree(pRoot, array, size, &len, invaild);
 }
 
 //拷贝二叉树   根+左子树+右子树
-PNode CopyBinTree(PNode pRoot)
+PBTNode CopyBinTree(PBTNode pRoot)
 {
-	PNode pNewRoot = NULL;
+	PBTNode pNewRoot = NULL;
 	if (pRoot)
 	{
 		pNewRoot = BuyBinTreeNode(pRoot->_data);
@@ -58,7 +54,7 @@ PNode CopyBinTree(PNode pRoot)
 	return pNewRoot;
 }
 //前序遍历    根+ 左子树+ 右子树
-void PerOrder(PNode pRoot)
+void PerOrder(PBTNode pRoot)
 {
 	if (pRoot)
 	{
@@ -68,7 +64,7 @@ void PerOrder(PNode pRoot)
 	}
 }
 //中序遍历 左子树+ 根+ 右子树
-void MidOrder(PNode pRoot)
+void MidOrder(PBTNode pRoot)
 {
 	if (pRoot)
 	{
@@ -78,7 +74,7 @@ void MidOrder(PNode pRoot)
 	}
 }
 //后序遍历 左子树+ 右子树+ 根
-void PostOrder(PNode pRoot)
+void PostOrder(PBTNode pRoot)
 {
 	if (pRoot)
 	{
@@ -88,7 +84,7 @@ void PostOrder(PNode pRoot)
 	}
 }
 //销毁二叉树
-void DestroyBinTree(PNode* pRoot)
+void DestroyBinTree(PBTNode* pRoot)
 {
 	assert(pRoot);
 	if (*pRoot)
@@ -102,14 +98,42 @@ void DestroyBinTree(PNode* pRoot)
 		*pRoot=NULL;
 	}
 }
+//层序遍历
+void LevelOrder(PBTNode pRoot)
+{
+	//如果树为空，直接返回
+	if (NULL == pRoot)
+		return;
+	//否则创建一个队列来存放树里的值
+	Queue q;
+	QueueInit(&q);
+
+	//将根节点先入队列
+	QueuePush(&q,pRoot);
+	while (QueueEmpty(&q))
+	{
+		PBTNode pCur = NULL;
+		pCur = QueueFront(&q);
+		printf(" %c", pCur->_data);
+		if (pCur->_pLeft)
+		{
+			QueuePush(&q, pCur->_pLeft);
+		}
+		if (pCur->_pRight)
+		{
+			QueuePush(&q, pCur->_pRight);
+		}
+		QueuePop(&q);
+	}
+}
 void TestBinTree()
 {
-	PNode pRoot=NULL; 
-	PNode pNewNode = NULL;
+	PBTNode pRoot=NULL; 
+	PBTNode pNewBTNode = NULL;
 	char* array = "ABD###CE##F";
 
 	CreatBinTree(&pRoot, array, strlen(array),'#');
-	pNewNode = CopyBinTree(pRoot);
+	pNewBTNode = CopyBinTree(pRoot);
 
 	printf("前序遍历：");
 	PerOrder(pRoot);
@@ -119,5 +143,8 @@ void TestBinTree()
 	printf("\n");
 	printf("后序遍历：");
 	PostOrder(pRoot);
-	//PerOrder(pNewNode);
+
+	printf("后序遍历：");
+	LevelOrder(pRoot);
+	//PerOrder(pNewBTNode);
 }

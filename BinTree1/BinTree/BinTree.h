@@ -1,23 +1,26 @@
 #pragma once
 
-typedef char DataType;
+typedef char BTDataType;
 
 //孩子表示法
 typedef struct BinTreeNode
 {
 	struct BinTreeNode* _pLeft;
 	struct BinTreeNode* _pRight;
-	DataType _data;
-}Node,*PNode;
+	BTDataType _data;
+}BTNode,*PBTNode;
 
 //创建二叉树
-void CreatBinTree(PNode* pRoot, DataType array[], int size, DataType invaild);
+void CreatBinTree(PBTNode* pRoot, BTDataType array[], int size, BTDataType invaild);
 //拷贝二叉树
-PNode CopyBinTree(PNode pRoot);
+PBTNode CopyBinTree(PBTNode pRoot);
 
 //前序 中序 后序遍历
-void PerOrder(PNode pRoot);
-void MidOrder(PNode pRoot);
-void PostOrder(PNode pRoot);
-void DestroyBinTree(PNode* pRoot);
+void PerOrder(PBTNode pRoot);
+void MidOrder(PBTNode pRoot);
+void PostOrder(PBTNode pRoot);
+void DestroyBinTree(PBTNode* pRoot);
+//层序遍历
+void LevelOrder(PBTNode pRoot);
+
 void TestBinTree();
