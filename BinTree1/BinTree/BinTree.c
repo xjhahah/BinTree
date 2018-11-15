@@ -229,7 +229,7 @@ int BinTreeLevekKSize(PBTNode pRoot, int K)
 {
 	if (NULL == pRoot)
 		return 0;
-	if (K == 0)
+	if (K == 1)
 		return 1;
 	return BinTreeLevekKSize(pRoot->_pLeft, K - 1) + BinTreeLevekKSize(pRoot->_pRight, K - 1);
 }
