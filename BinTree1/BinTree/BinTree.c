@@ -19,7 +19,7 @@ PBTNode BuyBinTreeNode(BTDataType data)
 void _CreatBinTree(PBTNode* pRoot, BTDataType array[], int size,int* index, BTDataType invaild)
 {
 	assert(pRoot);
-	if (*index < size&&invaild != array[*index])
+	if (*index < size && invaild != array[*index])
 	{
 		*pRoot = BuyBinTreeNode(array[*index]);
 
@@ -53,6 +53,42 @@ PBTNode CopyBinTree(PBTNode pRoot)
 	}	
 	return pNewRoot;
 }
+//高度
+int BinTreeHeight(PBTNode pRoot)
+{
+	int m = 0, n = 0;
+	if (NULL == pRoot)
+		return 0;
+	else
+	{
+		if(pRoot->_pLeft)
+			m = BinTreeHeight(pRoot->_pLeft);
+		if(pRoot->_pRight)
+			n = BinTreeHeight(pRoot->_pRight);
+	}
+	return m > n ? m + 1 : n + 1;
+}
+
+//查找一个节点是否在二叉树中
+PBTNode BinTreeFind(PBTNode pRoot, BTDataType data)
+{
+	PBTNode ret;
+	if (NULL == pRoot || pRoot->_data == data)
+		return pRoot;
+	ret = BinTreeFind(pRoot->_pLeft, data);
+	if (ret)
+	{
+		return ret;
+	}
+	ret = BinTreeFind(pRoot->_pRight, data);
+	if (ret)
+	{
+		return ret;
+	}
+	return NULL;
+}
+
+
 //前序遍历    根+ 左子树+ 右子树
 void PerOrder(PBTNode pRoot)
 {
@@ -133,10 +169,9 @@ void Swap(PBTNode* pLeft, PBTNode* pRight)
 	*pLeft = *pRight;
 	*pRight = pTemp;
 }
-//镜像的递归实现
+//镜像的非递归实现
 void MirrorBinTreeNor(PBTNode pRoot)
 {
-	//非递归
 	if (NULL == pRoot)
 		return;
 	Queue q;
@@ -189,6 +224,18 @@ int BinTreeLeaf(PBTNode pRoot)
 		return 1;
 	return BinTreeLeaf(pRoot->_pLeft) + BinTreeLeaf(pRoot->_pRight);
 }
+//求K层的节点个数
+int BinTreeLevekKSize(PBTNode pRoot, int K)
+{
+	if (NULL == pRoot)
+		return 0;
+	if (K == 0)
+		return 1;
+	return BinTreeLevekKSize(pRoot->_pLeft, K - 1) + BinTreeLevekKSize(pRoot->_pRight, K - 1);
+}
+
+
+
 void TestBinTree()
 {
 	PBTNode pRoot=NULL; 
@@ -223,4 +270,5 @@ void TestBinTree()
 	printf("二叉树的节点数为：%d\n", BinTreeSize(pRoot));
 	
 	printf("二叉树的叶子节点数：%d\n", BinTreeLeaf(pRoot));
+	printf("二叉树的高度为： %d\n", BinTreeHeight(pRoot));
 }
