@@ -233,7 +233,52 @@ int BinTreeLevekKSize(PBTNode pRoot, int K)
 		return 1;
 	return BinTreeLevekKSize(pRoot->_pLeft, K - 1) + BinTreeLevekKSize(pRoot->_pRight, K - 1);
 }
+//判断二叉树是否为完全二叉树,层序遍历
+int IsCompleteBTree(PBTNode pRoot)
+{
+	Queue q;
+	QueueInit(&q);
+	if (NULL == pRoot)
+		return 0;
+	//如果二叉树不空，将根节点入队列
+	QueuePush(&q,pRoot);
+	while (QueueEmpty(&q)!=0)
+	{
+		//取队头元素
+		PBTNode pFront = QueueFront(&q);
+		QueuePop(&q);
+		//如果根节点存在，左右孩子入队列
+		if (pFront)
+		{
+			QueuePush(&q, pFront->_pLeft);
+			QueuePush(&q, pFront->_pRight);
+		}
+		else
+		{
+			break;
+		}
+	}
+	//判断二叉树是否走到叶子结点
+	while (QueueEmpty(&q) != 0)
+	{
+		PBTNode pFront = QueueFront(&q);
+		if (pFront)
+		{
+			DestroyQueue(&q);
+			return -1;
+		}
+		else
+		{
+			QueuePop(&q);
+		}
+	}
+	return 0;
+}
 
+int IsCompleteBTree1(PBTNode pRoot) // flag的方式判断 
+{
+
+}
 
 
 void TestBinTree()
@@ -271,4 +316,6 @@ void TestBinTree()
 	
 	printf("二叉树的叶子节点数：%d\n", BinTreeLeaf(pRoot));
 	printf("二叉树的高度为： %d\n", BinTreeHeight(pRoot));
+	printf("IsCompleteBTree?: %d\n", IsCompleteBTree(pRoot));
+	//DestroyBinTree(&q);
 }

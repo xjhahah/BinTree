@@ -42,6 +42,8 @@ int BinTreeLeaf(PBTNode pRoot);
 int BinTreeHeight(PBTNode pRoot);
 //求K层的节点个数
 int BinTreeLevekKSize(PBTNode pRoot, int K);
-
+//判断二叉树是否为完全二叉树
+int IsCompleteBTree(PBTNode pRoot);
+int IsCompleteBTree1(PBTNode pRoot); // flag的方式判断 
 ///////////////////////////////////////////////
 void TestBinTree();

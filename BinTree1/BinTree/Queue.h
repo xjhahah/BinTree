@@ -74,3 +74,14 @@ int QueueEmpty(Queue* q)
 	}
 	return 0;
 }
+void DestroyQueue(Queue* q)
+{
+	PNode pNewHaed = NULL;
+	pNewHaed = q->_pHead;
+	if (q->_pHead)
+	{
+		pNewHaed = q->_pHead->_pNext;
+		free(q->_pHead);
+		q->_pHead = pNewHaed;
+	}
+}
