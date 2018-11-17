@@ -1,6 +1,6 @@
 #include "BinTree.h"
 #include "Queue.h"
-
+#include "Stack.h"
 PBTNode BuyBinTreeNode(BTDataType data)
 {
 	PBTNode pNewBTNode = NULL;
@@ -118,6 +118,85 @@ void PostOrder(PBTNode pRoot)
 		PostOrder(pRoot->_pRight);
 		printf("%c ", pRoot->_data);
 	}
+}
+// 非递归遍历 
+void BTreePrevOrderNonR(PBTNode pRoot)
+{
+	PBTNode pCur = pRoot;
+	PBTNode pTop;
+	Stack s;
+	StackInit(&s);
+	if (NULL == pRoot)
+		return;
+	while (pCur || StackEmpty(&s))
+	{
+		//访问左路节点，左节点进栈
+		while (pCur)
+		{
+			printf("%c ", pCur->_data);
+			StackPush(&s, pCur->_data);
+			pCur = pCur->_pLeft;
+		}
+		//栈出来的节点表示左树已经访问过了
+		pTop = StackTop(&s);
+		StackTop(&s);
+		//子问题访问右树
+		pCur = pTop->_pRight;
+	}
+	printf("\n");
+}
+void BTreeInOrderNonR(PBTNode pRoot)
+{
+	PBTNode pCur = pRoot;
+	Stack s;
+	PBTNode pTop;
+	StackInit(&s);
+	if (NULL == pRoot)
+		return;
+	while (pCur || StackEmpty(&s))
+	{
+		while (pCur)
+		{
+			StackPush(&s, pCur->_data);
+			pCur = pCur->_pLeft;
+		}
+		//左树遍历结束
+		pTop = StackTop(&s);
+		StackPop(&s);
+		printf("%c ", pTop->_data);
+		pCur = pTop->_pRight;
+	}
+	printf("\n");
+}
+void BTreePostOrderNonR(PBTNode pRoot)
+{
+	PBTNode pCur = pRoot;
+	Stack s;
+	PBTNode pTop,pPre;
+	StackInit(&s);
+	if (NULL == pRoot)
+		return;
+	while (pCur || StackEmpty(&s))
+	{
+		while (pCur)
+		{
+			StackPush(&s, pCur);
+			pCur = pCur->_pLeft;
+		}
+		pTop = StackTop(&s);
+		pPre = pTop;
+		if (NULL == pTop->_pRight|| pTop->_pRight==pPre)
+		{
+			printf("%c ", pTop->_data);
+			pPre = pTop;
+			StackPop(&s);
+		}
+		else
+		{
+			pCur = pTop->_pRight;
+		}
+	}
+	printf("\n");
 }
 //销毁二叉树
 void DestroyBinTree(PBTNode* pRoot)
@@ -275,10 +354,10 @@ int IsCompleteBTree(PBTNode pRoot)
 	return 0;
 }
 
-int IsCompleteBTree1(PBTNode pRoot) // flag的方式判断 
-{
-
-}
+//int IsCompleteBTree1(PBTNode pRoot) // flag的方式判断 
+//{
+//
+//}
 
 
 void TestBinTree()
@@ -292,6 +371,7 @@ void TestBinTree()
 
 	printf("前序遍历：");
 	PerOrder(pRoot);
+	BTreePrevOrderNonR( pRoot);
 	printf("\n");
 	printf("中序遍历：");
 	MidOrder(pRoot);

@@ -4,8 +4,7 @@
 #include <assert.h>
 #include <malloc.h>
 #include <string.h>
-
-//extern struct BTNode;
+extern struct BTNode;
 typedef BTNode* DataType;
 
 typedef struct Node

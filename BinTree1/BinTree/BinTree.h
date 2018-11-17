@@ -19,6 +19,10 @@ PBTNode CopyBinTree(PBTNode pRoot);
 void PerOrder(PBTNode pRoot);
 void MidOrder(PBTNode pRoot);
 void PostOrder(PBTNode pRoot);
+// 非递归遍历 
+void BTreePrevOrderNonR(PBTNode pRoot);
+void BTreeInOrderNonR(PBTNode pRoot);
+void BTreePostOrderNonR(PBTNode pRoot);
 //层序遍历
 void LevelOrder(PBTNode pRoot);
 //二叉树的销毁
@@ -44,6 +48,6 @@ int BinTreeHeight(PBTNode pRoot);
 int BinTreeLevekKSize(PBTNode pRoot, int K);
 //判断二叉树是否为完全二叉树
 int IsCompleteBTree(PBTNode pRoot);
-int IsCompleteBTree1(PBTNode pRoot); // flag的方式判断 
+//int IsCompleteBTree1(PBTNode pRoot); // flag的方式判断 
 ///////////////////////////////////////////////
 void TestBinTree();
